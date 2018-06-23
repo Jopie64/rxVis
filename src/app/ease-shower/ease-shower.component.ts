@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-import { map, shareReplay, takeUntil, takeWhile, repeat, concatMap, share, distinctUntilChanged } from 'rxjs/operators';
+import { Component, OnInit, Input } from '@angular/core';
+import { from, Observable, concat } from 'rxjs';
+import { map, shareReplay, takeUntil, takeWhile, repeat, concatMap, share, distinctUntilChanged, delay } from 'rxjs/operators';
 import EZ from 'eases';
 import { duration, ease } from '../tools';
 
@@ -11,29 +11,21 @@ import { duration, ease } from '../tools';
 })
 export class EaseShowerComponent implements OnInit {
 
-  easing$ = from(Object.keys(EZ).map(v => ({name: v, f: EZ[v]}))).pipe(
-    concatMap(v => duration(2000).pipe(
-      ease(v.f),
-      map(ep => ({name: v.name, ep}))
-    )),
-    repeat(),
-    share()
-  );
+  @Input() func: (n: number) => number;
+  @Input() name: string;
 
-  circleSize$ = this.easing$.pipe(
-    map(v => v.ep),
-    map(i => i * 70 + 10)
-  );
-
-  easeName$ = this.easing$.pipe(
-    map(v => v.name),
-    distinctUntilChanged()
-  );
+  circleSize$: Observable<number>;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.circleSize$ = concat(
+      duration(2000).pipe(map(this.func)),
+      from([1]).pipe(delay(2000))
+    ).pipe(
+      repeat(),
+      map(i => i * 70 + 10)
+    );
   }
-
 }

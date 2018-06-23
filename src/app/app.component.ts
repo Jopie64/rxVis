@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import EZ from 'eases';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  eases = Object.keys(EZ).map(name => ({name, f: EZ[name]}));
 }

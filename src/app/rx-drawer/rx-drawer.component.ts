@@ -9,7 +9,7 @@ interface IPos {
   x: number;
   y: number;
 }
-interface IGenerator {
+interface IRxNode {
   pos: IPos;
   name: string;
 }
@@ -42,19 +42,33 @@ export class RxDrawerComponent implements OnInit {
     distinctUntilChanged()
   );
 
-  generators: IGenerator[] = [{
-    pos: {x: 1, y: 1},
-    name: 'A'
-  }, {
-    pos: {x: 2, y: 1},
-    name: 'B'
-  }, {
-    pos: {x: 1, y: 2},
-    name: 'C'
-  }, {
-    pos: {x: 2, y: 2},
-    name: 'D'
-  }];
+  generators: IRxNode[] = [{
+      pos: {x: 1, y: 1},
+      name: 'A'
+    }, {
+      pos: {x: 2, y: 1},
+      name: 'B'
+    }, {
+      pos: {x: 1, y: 2},
+      name: 'C'
+    }, {
+      pos: {x: 2, y: 2},
+      name: 'D'
+    }];
+
+  operators: IRxNode[] = [{
+      pos: {x: 4, y: 1},
+      name: 'map'
+    }, {
+      pos: {x: 6, y: 1},
+      name: 'scan'
+    }, {
+      pos: {x: 4, y: 2},
+      name: 'debounce'
+    }, {
+      pos: {x: 6, y: 2},
+      name: 'switchMap'
+    }];
 
   constructor() {
   }

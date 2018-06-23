@@ -1,10 +1,16 @@
 <svg width="100%" viewBox="0 0 1000 500">
   <style>
     .generatorCircle { fill: green }
-    .generatorText { font: bold 30px sans-serif; fill: blue }
+    .generatorText { font: bold 30px sans-serif; fill: white }
+    .operatorBox { fill: blue }
+    .operatorText { font: bold 25px sans-serif; fill: white }
   </style>
   <svg:g *ngFor="let g of generators" >
     <svg:circle [attr.cx]="100 * g.pos.x" [attr.cy]="100 * g.pos.y" [attr.r]="40" stroke="black" stroke-width="3" class="generatorCircle" />
     <svg:text [attr.x]="100 * g.pos.x" [attr.y]="100 * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="generatorText">{{ g.name }}</text>
+  </svg:g>
+  <svg:g *ngFor="let g of operators" >
+    <svg:rect [attr.x]="100 * g.pos.x - 40" [attr.y]="100 * g.pos.y - 40" [attr.width]="180" [attr.height]="80" stroke="black" stroke-width="3" class="operatorBox" />
+    <svg:text [attr.x]="100 * g.pos.x + 50" [attr.y]="100 * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="operatorText">{{ g.name }}</text>
   </svg:g>
 </svg>

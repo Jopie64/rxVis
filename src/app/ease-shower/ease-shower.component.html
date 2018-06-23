@@ -1,0 +1,8 @@
+<svg height="200" width="200">
+  <style>
+    .myText { font: bold 10px sans-serif; fill: white }
+  </style>
+  <circle cx="100" cy="100" [attr.r]="circleSize$ | async" stroke="black" stroke-width="3" fill="red" />
+  <text alignment-baseline="middle" text-anchor="middle" x="100" y="100" class="myText">{{easeName$ | async}}</text>
+</svg>
+  

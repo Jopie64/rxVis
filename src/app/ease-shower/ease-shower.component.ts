@@ -5,11 +5,11 @@ import EZ from 'eases';
 import { duration, ease } from '../tools';
 
 @Component({
-  selector: 'app-rx-drawer',
-  templateUrl: './rx-drawer.component.html',
-  styleUrls: ['./rx-drawer.component.css']
+  selector: 'app-ease-shower',
+  templateUrl: './ease-shower.component.html',
+  styleUrls: ['./ease-shower.component.css']
 })
-export class RxDrawerComponent implements OnInit {
+export class EaseShowerComponent implements OnInit {
 
   easing$ = from(Object.keys(EZ).map(v => ({name: v, f: EZ[v]}))).pipe(
     concatMap(v => duration(2000).pipe(
@@ -35,4 +35,5 @@ export class RxDrawerComponent implements OnInit {
 
   ngOnInit() {
   }
+
 }

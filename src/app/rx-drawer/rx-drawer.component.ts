@@ -22,7 +22,7 @@ export class RxDrawerComponent implements OnInit {
 
   circleSize$ = this.easing$.pipe(
     map(v => v.ep),
-    map(i => i * 70 + 10)
+    map(i => i * 150 + 50)
   );
 
   easeName$ = this.easing$.pipe(

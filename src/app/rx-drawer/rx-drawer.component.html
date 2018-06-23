@@ -1,11 +1,10 @@
-<p>
-
-  <svg width="100%" viewBox="0 0 1000 500">
-    <style>
-      .myText { font: bold 10px sans-serif; fill: white }
-    </style>
-    <circle cx="500" cy="250" [attr.r]="circleSize$ | async" stroke="black" stroke-width="3" fill="red" />
-    <text alignment-baseline="middle" text-anchor="middle" x="500" y="250" class="myText">{{easeName$ | async}}</text>
-  </svg>
-    
-</p>
+<svg width="100%" viewBox="0 0 1000 500">
+  <style>
+    .generatorCircle { fill: green }
+    .generatorText { font: bold 30px sans-serif; fill: blue }
+  </style>
+  <svg:g *ngFor="let g of generators" >
+    <svg:circle [attr.cx]="100 * g.pos.x" [attr.cy]="100 * g.pos.y" [attr.r]="40" stroke="black" stroke-width="3" class="generatorCircle" />
+    <svg:text [attr.x]="100 * g.pos.x" [attr.y]="100 * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="generatorText">{{ g.name }}</text>
+  </svg:g>
+</svg>

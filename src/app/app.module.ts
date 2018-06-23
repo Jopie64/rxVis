@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { RxDrawerComponent } from './rx-drawer/rx-drawer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RxDrawerComponent
   ],
   imports: [
     BrowserModule

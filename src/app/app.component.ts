@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import EZ from 'eases';
-import { demoNodeTypes } from './rxConfigs';
+import { demoNodeTypes, inMapOut } from './rxConfigs';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +10,7 @@ import { demoNodeTypes } from './rxConfigs';
 export class AppComponent {
   eases = Object.keys(EZ).map(name => ({name, f: EZ[name]}));
 
-  configs = [demoNodeTypes];
+  configs = [
+    demoNodeTypes,
+    inMapOut];
 }

@@ -16,8 +16,18 @@ export interface IRxOperator extends IRxNodeBase {
   type: 'operator';
 }
 
-export type IRxNode = IRxGenerator | IRxOperator;
+export interface IRxOutput extends IRxNodeBase {
+  type: 'output';
+}
+
+export type IRxNode = IRxGenerator | IRxOperator | IRxOutput;
+
+export interface IRxLink {
+    pos: IPos;
+    horizontal: boolean;
+}
 
 export interface IRxConfig {
     nodes: IRxNode[];
+    links: IRxLink[];
 }

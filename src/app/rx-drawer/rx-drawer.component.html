@@ -19,4 +19,7 @@
     <svg:circle [attr.cx]="gpx * g.pos.x" [attr.cy]="gpx * g.pos.y" [attr.r]="gmidToMar" stroke="black" stroke-width="3" class="outputCircle" />
     <svg:text [attr.x]="gpx * g.pos.x" [attr.y]="gpx * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="outputText">{{ g.name }}</text>
   </svg:g>
+  <svg:g *ngFor="let g of links" >
+      <line [attr.x1]="g.xFrom" [attr.y1]="g.yFrom" [attr.x2]="g.xTo" [attr.y2]="g.yTo" style="stroke:black;stroke-width:3" />
+  </svg:g>
 </svg>

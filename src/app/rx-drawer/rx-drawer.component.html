@@ -7,19 +7,19 @@
     .outputCircle { fill: red }
     .outputText { font: bold 30px sans-serif; fill: white }
   </style>
-  <svg:g *ngFor="let g of generators" >
-    <svg:circle [attr.cx]="gpx * g.pos.x" [attr.cy]="gpx * g.pos.y" [attr.r]="gmidToMar" stroke="black" stroke-width="3" class="generatorCircle" />
-    <svg:text [attr.x]="gpx * g.pos.x" [attr.y]="gpx * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="generatorText">{{ g.name }}</text>
+  <svg:g *ngFor="let g of components.generators" >
+    <svg:circle [attr.cx]="g.center.x" [attr.cy]="g.center.y" [attr.r]="g.size" stroke="black" stroke-width="3" class="generatorCircle" />
+    <svg:text [attr.x]="g.center.x" [attr.y]="g.center.y" alignment-baseline="middle" text-anchor="middle" class="generatorText">{{ g.name }}</text>
   </svg:g>
-  <svg:g *ngFor="let g of operators" >
-    <svg:rect [attr.x]="gpx * g.pos.x - gmidToMar" [attr.y]="gpx * g.pos.y - gmidToMar" [attr.width]="gpx * 2 - gmg - gmg" [attr.height]="gpx - gmg - gmg" stroke="black" stroke-width="3" class="operatorBox" />
-    <svg:text [attr.x]="gpx * g.pos.x + gmid" [attr.y]="gpx * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="operatorText">{{ g.name }}</text>
+  <svg:g *ngFor="let g of components.operators" >
+    <svg:rect [attr.x]="g.tl.x" [attr.y]="g.tl.y" [attr.width]="g.width" [attr.height]="g.height" stroke="black" stroke-width="3" class="operatorBox" />
+    <svg:text [attr.x]="g.textPos.x" [attr.y]="g.textPos.y" alignment-baseline="middle" text-anchor="middle" class="operatorText">{{ g.name }}</text>
   </svg:g>
-  <svg:g *ngFor="let g of output" >
-    <svg:circle [attr.cx]="gpx * g.pos.x" [attr.cy]="gpx * g.pos.y" [attr.r]="gmidToMar" stroke="black" stroke-width="3" class="outputCircle" />
-    <svg:text [attr.x]="gpx * g.pos.x" [attr.y]="gpx * g.pos.y" alignment-baseline="middle" text-anchor="middle" class="outputText">{{ g.name }}</text>
+  <svg:g *ngFor="let g of components.output" >
+    <svg:circle [attr.cx]="g.center.x" [attr.cy]="g.center.y" [attr.r]="g.size" stroke="black" stroke-width="3" class="outputCircle" />
+    <svg:text [attr.x]="g.center.x" [attr.y]="g.center.y" alignment-baseline="middle" text-anchor="middle" class="outputText">{{ g.name }}</text>
   </svg:g>
-  <svg:g *ngFor="let g of links" >
+  <svg:g *ngFor="let g of components.links" >
       <line [attr.x1]="g.xFrom" [attr.y1]="g.yFrom" [attr.x2]="g.xTo" [attr.y2]="g.yTo" style="stroke:black;stroke-width:3" />
   </svg:g>
 </svg>

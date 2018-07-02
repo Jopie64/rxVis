@@ -54,3 +54,28 @@ export const inMapOut: IRxConfig = {
         frame(1, '4')
     ]
 };
+
+export const filter: IRxConfig = {
+    nodes: [
+        gen('S', 1, 1),
+        op('filter(v => v % 2)', 1, 3),
+        out('Out', 1, 5)
+    ],
+    links: [
+        link(1, 2),
+        link(1, 4)
+    ],
+    sequence: [
+        frame(0, '1'),
+        frame(1, '1'),
+        frame(0, '2'),
+        frame(0, '3'),
+        frame(1, '3'),
+        frame(0, '4'),
+        frame(0, '5'),
+        frame(1, '5'),
+        frame(0, '6'),
+        frame(0, '7'),
+        frame(1, '7')
+    ]
+};

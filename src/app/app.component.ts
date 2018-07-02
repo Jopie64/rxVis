@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import EZ from 'eases';
-import { demoNodeTypes, inMapOut } from './rxConfigs';
+import { demoNodeTypes, inMapOut, filter } from './rxConfigs';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +12,6 @@ export class AppComponent {
 
   configs = [
     demoNodeTypes,
-    inMapOut];
+    inMapOut,
+    filter];
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import EZ from 'eases';
 import { duration, ease } from '../tools';
-import { IRxConfig, IRxGenerator, IRxOperator, IRxOutput, IPos, IRxNodeBase, IRxLink } from 'src/app/rxConfigDef';
-import { Observable, from } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
+import { IRxConfig, IPos, IRxNodeBase, IRxLink } from 'src/app/rxConfigDef';
+import { Observable, from, Subject, defer } from 'rxjs';
+import { map, concatMap, switchMap } from 'rxjs/operators';
 
 
 interface IMyLink {
@@ -33,10 +33,10 @@ interface IComponents {
   operators: IMyRectNode[];
   output: IMyCircleNode[];
   links: IMyLink[];
-  value$: Observable<IMyCircleNode>;
+  value$: Observable<IMyCircleNode | null>;
 }
 
-const makeInitial = (config: IRxConfig): IComponents => {
+const makeInitial = (config: IRxConfig, start$: Observable<void>): IComponents => {
   const gpx = 100; // grid pixel size
   const gmg = 10;  // grid margin
 
@@ -85,7 +85,7 @@ const makeInitial = (config: IRxConfig): IComponents => {
   const links = config.links
     .map(convertLink);
 
-  const value$ = from(config.sequence).pipe(
+  const value$ = start$.pipe(switchMap(_ => (from(config.sequence).pipe(
     map(s => ({link: links[s.linkIx], value: s.value })),
     concatMap(({ link, value }) =>
       duration(2000).pipe(
@@ -96,7 +96,7 @@ const makeInitial = (config: IRxConfig): IComponents => {
           }, size: 30, name: value
         }))
       )
-    ));
+    )))));
 
   return {
     generators,
@@ -116,12 +116,14 @@ export class RxDrawerComponent implements OnInit {
 
   @Input() config: IRxConfig;
 
+  start$ = new Subject<void>();
+
   components: IComponents;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.components = makeInitial(this.config);
+    this.components = makeInitial(this.config, this.start$);
   }
 }

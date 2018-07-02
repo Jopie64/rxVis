@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { from, Observable, concat } from 'rxjs';
-import { map, shareReplay, takeUntil, takeWhile, repeat, concatMap, share, distinctUntilChanged, delay } from 'rxjs/operators';
-import EZ from 'eases';
-import { duration, ease } from '../tools';
+import { map, repeat, delay } from 'rxjs/operators';
+import { duration } from '../tools';
 
 @Component({
   selector: 'app-ease-shower',

@@ -6,6 +6,8 @@
     .operatorText { font: bold 25px sans-serif; fill: white }
     .outputCircle { fill: red }
     .outputText { font: bold 30px sans-serif; fill: white }
+    .valueCircle { fill: yellow }
+    .valueText { font: bold 30px sans-serif; fill: black }
   </style>
   <svg:g *ngFor="let g of components.generators" >
     <svg:circle [attr.cx]="g.center.x" [attr.cy]="g.center.y" [attr.r]="g.size" stroke="black" stroke-width="3" class="generatorCircle" />
@@ -22,4 +24,8 @@
   <svg:g *ngFor="let g of components.links" >
       <line [attr.x1]="g.xFrom" [attr.y1]="g.yFrom" [attr.x2]="g.xTo" [attr.y2]="g.yTo" style="stroke:black;stroke-width:3" />
   </svg:g>
+  <svg:g *ngFor="let v of components.values$"><svg:g *ngIf="v | async; let g">
+    <svg:circle [attr.cx]="g.center.x" [attr.cy]="g.center.y" [attr.r]="g.size" stroke="black" stroke-width="3" class="valueCircle" />
+    <svg:text [attr.x]="g.center.x" [attr.y]="g.center.y" alignment-baseline="middle" text-anchor="middle" class="valueText">{{ g.name }}</text>
+  </svg:g></svg:g>
 </svg>

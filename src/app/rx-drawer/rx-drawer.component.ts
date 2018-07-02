@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import EZ from 'eases';
 import { duration, ease } from '../tools';
-import { IRxConfig, IRxGenerator, IRxOperator, IRxOutput, IPos, IRxNodeBase } from 'src/app/rxConfigDef';
+import { IRxConfig, IRxGenerator, IRxOperator, IRxOutput, IPos, IRxNodeBase, IRxLink } from 'src/app/rxConfigDef';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 interface IMyLink {
@@ -31,6 +33,7 @@ interface IComponents {
   operators: IMyRectNode[];
   output: IMyCircleNode[];
   links: IMyLink[];
+  values$: Observable<IMyCircleNode>[];
 }
 
 const makeInitial = (config: IRxConfig): IComponents => {
@@ -71,18 +74,36 @@ const makeInitial = (config: IRxConfig): IComponents => {
     .filter(v => v.type === 'output')
     .map(toCircleNode);
 
+  const convertLink = (l: IRxLink): IMyLink => l.horizontal
+    ? { xFrom: l.pos.x * gpx - ld, yFrom: l.pos.y * gpx,
+        xTo: l.pos.x * gpx + ld, yTo: l.pos.y * gpx }
+    : { xFrom: l.pos.x * gpx, yFrom: l.pos.y * gpx - ld,
+        xTo: l.pos.x * gpx, yTo: l.pos.y * gpx + ld };
+
+  const fromTo = (f: number, t: number, p: number) => (t - f) * p + f;
+
   const links = config.links
-    .map(l => l.horizontal
-      ? { xFrom: l.pos.x * gpx - ld, yFrom: l.pos.y * gpx,
-          xTo: l.pos.x * gpx + ld, yTo: l.pos.y * gpx }
-      : { xFrom: l.pos.x * gpx, yFrom: l.pos.y * gpx - ld,
-          xTo: l.pos.x * gpx, yTo: l.pos.y * gpx + ld }
+    .map(convertLink);
+
+  const value = convertLink({ pos: { x: 1, y: 2}, horizontal: false });
+
+  const value$ = duration(2000).pipe(
+    ease(EZ.quadInOut),
+    map(p => ({ center: {
+          x: fromTo(value.xFrom, value.xTo, p),
+          y: fromTo(value.yFrom, value.yTo, p)
+        }, size: 30, name: '3'
+      }))
     );
+
+  const values$ = [value$];
+
   return {
     generators,
     operators,
     output,
-    links
+    links,
+    values$
   };
 };
 

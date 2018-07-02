@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import EZ from 'eases';
 import { duration, ease } from '../tools';
 import { IRxConfig, IRxGenerator, IRxOperator, IRxOutput, IPos, IRxNodeBase, IRxLink } from 'src/app/rxConfigDef';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 
 
 interface IMyLink {
@@ -33,7 +33,7 @@ interface IComponents {
   operators: IMyRectNode[];
   output: IMyCircleNode[];
   links: IMyLink[];
-  values$: Observable<IMyCircleNode>[];
+  value$: Observable<IMyCircleNode>;
 }
 
 const makeInitial = (config: IRxConfig): IComponents => {
@@ -85,25 +85,25 @@ const makeInitial = (config: IRxConfig): IComponents => {
   const links = config.links
     .map(convertLink);
 
-  const value = convertLink({ pos: { x: 1, y: 2}, horizontal: false });
-
-  const value$ = duration(2000).pipe(
-    ease(EZ.quadInOut),
-    map(p => ({ center: {
-          x: fromTo(value.xFrom, value.xTo, p),
-          y: fromTo(value.yFrom, value.yTo, p)
-        }, size: 30, name: '3'
-      }))
-    );
-
-  const values$ = [value$];
+  const value$ = from(config.sequence).pipe(
+    map(s => ({link: links[s.linkIx], value: s.value })),
+    concatMap(({ link, value }) =>
+      duration(2000).pipe(
+      ease(EZ.quadInOut),
+      map(p => ({ center: {
+            x: fromTo(link.xFrom, link.xTo, p),
+            y: fromTo(link.yFrom, link.yTo, p)
+          }, size: 30, name: value
+        }))
+      )
+    ));
 
   return {
     generators,
     operators,
     output,
     links,
-    values$
+    value$
   };
 };
 

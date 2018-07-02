@@ -27,7 +27,13 @@ export interface IRxLink {
     horizontal: boolean;
 }
 
+export interface IRxSequence {
+  linkIx: number;
+  value: string;
+}
+
 export interface IRxConfig {
     nodes: IRxNode[];
     links: IRxLink[];
+    sequence: IRxSequence[];
 }

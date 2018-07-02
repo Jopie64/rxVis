@@ -1,4 +1,4 @@
-import { IRxNode, IRxGenerator, IRxOperator, IRxConfig, IRxOutput, IRxLink } from './rxConfigDef';
+import { IRxNode, IRxGenerator, IRxOperator, IRxConfig, IRxOutput, IRxLink, IRxSequence } from './rxConfigDef';
 
 const gen = (name: string, x: number, y: number): IRxGenerator => ({
     type: 'generator', name, pos: {x, y}
@@ -16,6 +16,10 @@ const link = (x: number, y: number, horizontal = false): IRxLink => ({
     pos: { x, y }, horizontal
 });
 
+const frame = (linkIx: number, value: string): IRxSequence => ({
+    linkIx, value
+});
+
 export const demoNodeTypes: IRxConfig = {
   nodes: [
       gen('A', 1, 1),
@@ -31,7 +35,8 @@ export const demoNodeTypes: IRxConfig = {
       out('O3', 1, 5),
       out('O4', 2, 5)
   ],
-  links: []
+  links: [],
+  sequence: []
 };
 
 export const inMapOut: IRxConfig = {
@@ -43,5 +48,9 @@ export const inMapOut: IRxConfig = {
     links: [
         link(1, 2),
         link(1, 4)
+    ],
+    sequence: [
+        frame(0, '3'),
+        frame(1, '4')
     ]
 };

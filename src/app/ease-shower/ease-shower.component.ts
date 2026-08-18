@@ -1,19 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { from, Observable, concat } from 'rxjs';
 import { map, repeat, delay } from 'rxjs/operators';
 import { duration } from '../tools';
 
 @Component({
   selector: 'app-ease-shower',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './ease-shower.component.html',
   styleUrls: ['./ease-shower.component.css']
 })
 export class EaseShowerComponent implements OnInit {
 
-  @Input() func: (n: number) => number;
-  @Input() name: string;
+  @Input() func!: (n: number) => number;
+  @Input() name!: string;
 
-  circleSize$: Observable<number>;
+  circleSize$!: Observable<number>;
 
   constructor() {
   }

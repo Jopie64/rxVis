@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import EZ from 'eases';
 import { duration, ease } from '../tools';
-import { IRxConfig, IPos, IRxNodeBase, IRxLink } from 'src/app/rxConfigDef';
-import { Observable, from, Subject, defer } from 'rxjs';
+import { IRxConfig, IPos, IRxNodeBase, IRxLink } from '../rxConfigDef';
+import { Observable, from, Subject } from 'rxjs';
 import { map, concatMap, switchMap } from 'rxjs/operators';
-
 
 interface IMyLink {
   xFrom: number;
@@ -109,16 +109,18 @@ const makeInitial = (config: IRxConfig, start$: Observable<void>): IComponents =
 
 @Component({
   selector: 'app-rx-drawer',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './rx-drawer.component.html',
   styleUrls: ['./rx-drawer.component.css']
 })
 export class RxDrawerComponent implements OnInit {
 
-  @Input() config: IRxConfig;
+  @Input() config!: IRxConfig;
 
   start$ = new Subject<void>();
 
-  components: IComponents;
+  components!: IComponents;
 
   constructor() {
   }

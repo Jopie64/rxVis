@@ -1,12 +1,19 @@
 # RxVis
 
-This project aims to make visible what happens during certain ReactiveX operations.
+> [!NOTE]
+> **Status: Gearchiveerd / Archived (Read-Only)**  
+> Dit project diende oorspronkelijk als visueel demonstratie-instrument om de kracht en elegantie van reactieve streamingconcepten (RxJS) inzichtelijk te maken voor collega-ontwikkelaars.  
+> Met de komst van moderne online visualizers en AI-ondersteuning voor asynchrone streams is het doel van dit prototype bereikt.  
+> Het project is als afsluiter gemoderniseerd naar Angular 22, Standalone Component Architecture en Vitest, en vervolgens gearchiveerd als historisch referentiepunt.
 
-# Files
+---
 
-See src/app/rxConfigs.ts to create or edit Rx configurations which can then be rendered with rx-drawer.
+## Over dit project
+RxVis is ontworpen om visueel inzichtelijk te maken wat er gebeurt tijdens reactieve operaties (RxJS). Het demonstreert hoe streams, operators (`map`, `filter`, `scan`, `switchMap`) en timing pipelines data vloeiend transformeren over een visueel raster.
 
-# Credits
+## Configuratie & Uitbreiding
+Zie `src/app/rxConfigs.ts` voor de definitie van Rx-configuraties en knooppunten die gerenderd worden via de `app-rx-drawer` component.
 
-Inspired by the excelent article:
-https://blog.angularindepth.com/learn-to-combine-rxjs-sequences-with-super-intuitive-interactive-diagrams-20fce8e6511
+## Credits & Inspiratie
+Geïnspireerd door het artikel:
+[Learn to combine RxJS sequences with super intuitive interactive diagrams](https://blog.angularindepth.com/learn-to-combine-rxjs-sequences-with-super-intuitive-interactive-diagrams-20fce8e6511)
